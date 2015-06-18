@@ -43,8 +43,11 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'src/*.js',
-      'test/*.js'
+      'build/jsbuf.js',
+      'test/ByteBufferAB.js',
+      'test/Long.js',
+      'test/ProtoBuf.js',
+      'test/spec-all.js'
     ],
 
 
