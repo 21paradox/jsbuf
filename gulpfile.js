@@ -54,3 +54,6 @@ gulp.task('watch', function () {
 	gulp.watch(['src/protobuf-decode.js', 'src/protobuf-map.coffee'], ['build:src']);
 	gulp.watch('test/*.coffee', ['build:test']);
 });
+
+
+gulp.task('build', ['build:src', 'build:test']);
