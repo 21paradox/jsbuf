@@ -15,6 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'test/typedarray.js',
       'build/jsbuf.js',
       'test/Long.js',
       'test/ByteBufferAB.js',
