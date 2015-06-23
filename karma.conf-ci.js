@@ -122,6 +122,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'test/json2.js',
       'test/typedarray.js',
       'test/polyfill.js',
       'build/jsbuf.js',
