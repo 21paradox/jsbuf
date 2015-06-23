@@ -791,6 +791,18 @@ Contains the core encode and decode functions.
       }
     };
 
+    jsbuf.prototype.queryHex = function(hex, selector, callback) {
+      var utf8str;
+      utf8str = hexToStr(hex);
+      return this.queryUtf(utf8str, selector, callback);
+    };
+
+    jsbuf.prototype.query64 = function(base64str, selector, callback) {
+      var utf8str;
+      utf8str = (typeof window.atob === "function" ? window.atob(base64str) : void 0) || base64.decode(base64str);
+      return this.queryUtf(utf8str, selector, callback);
+    };
+
     return jsbuf;
 
   })(Protobuf);

@@ -331,6 +331,15 @@ class jsbuf extends Protobuf
             return data
         )
         return val
+        
+  queryHex: (hex, selector, callback) ->
+      utf8str = hexToStr(hex)
+      return this.queryUtf(utf8str, selector, callback)
+  
+  query64: (base64str, selector, callback) ->
+      utf8str = window.atob?(base64str) or base64.decode(base64str)
+      return this.queryUtf(utf8str, selector, callback) 
+  
 
 #exports to window
 this.jsbuf = jsbuf
