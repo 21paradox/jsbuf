@@ -4,7 +4,6 @@
   "description": "decode protobuffer in the browser",
   "main": "karma.conf-ci.js",
   "scripts": {
-    "pretest": "gulp build",
     "test": "karma start karma.conf-ci.js"
   },
   "author": "21paradox",
