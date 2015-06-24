@@ -123,7 +123,8 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'test/json2.js',
-      'test/polyfill.js',
+      'test/es5shim.js',
+      'test/es5sham.js',
       'test/typedarray.js',
       'build/jsbuf.js',
       'test/Long.js',
