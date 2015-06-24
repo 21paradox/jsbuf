@@ -1,4 +1,4 @@
-describe 'test query', ->
+describe 'test query(legacy)', ->
 
 	ProtoBuf = dcodeIO.ProtoBuf
 	Long = dcodeIO.Long
@@ -6,17 +6,9 @@ describe 'test query', ->
 	ArrayBufferToUtf8String = (buffer) ->
 		return String.fromCharCode.apply(null, Array.prototype.slice.apply(new Uint8Array(buffer)))
 	
-	isIE = `function() {
-	  var myNav = navigator.userAgent.toLowerCase();
-	  return (myNav.indexOf('msie') != -1) ? parseInt(myNav.split('msie')[1]) : false;
-	}`
-
-	# If <= ie8 then return
-	if isIE() and isIE() <= 8 then return
-	
 	beforeEach -> 
 	
-	it 'should works correct with query', ->
+	it 'should works correct with query(legacy)', ->
 		
 		proto = """
 		message Wrap1 {
@@ -241,14 +233,28 @@ describe 'test query', ->
 					val34: null
 				}]		
 		}			
-		        
+		
+		
+		
 		Message = ProtoBuf.loadProto(proto).build("Wrap");	
 		msg = new Message(originMsg)
 		conv = jsbuf(protoJson)
 		
-		hex = msg.toHex()
-		base64 = msg.toBase64()
-		utf8str = ArrayBufferToUtf8String(msg.toArrayBuffer())
+		
+		
+		hexToStr = `function (hexx) {
+		    var hex = hexx.toString();
+		    var str = '';
+		    for (var i = 0; i < hex.length; i += 2)
+		        str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+		    return str;
+		}`
+		
+		hex = '0a0b08001207737563636573731298010a2508b2e6e20410001a0571756e30302a0070d80b7a008801be94c3a905a00101a80101b001000a40089af7db2f10001a0571756e30312a007086b01a7a1be3819ae381a3e381a8e3819ae381a3e381a8e3819ae381a3e381a88801a089ee43a00101a80101b001000a2d08b2e6e20410001a0571756e30302a0070d80b7a008801be94c3a905a00101a80101b00100f001a6c9b9dee515'
+		
+		base64 = 'CgsIABIHc3VjY2VzcxKYAQolCLLm4gQQABoFcXVuMDAqAHDYC3oAiAG+lMOpBaABAagBAbABAApACJr32y8QABoFcXVuMDEqAHCGsBp6G+OBmuOBo+OBqOOBmuOBo+OBqOOBmuOBo+OBqIgBoInuQ6ABAagBAbABAAotCLLm4gQQABoFcXVuMDAqAHDYC3oAiAG+lMOpBaABAagBAbABAPABpsm53uUV'
+		
+		utf8str = hexToStr(hex)
 		
 		utf8str1 = conv.queryUtf utf8str, 'error', (data) ->
 			

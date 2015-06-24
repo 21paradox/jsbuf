@@ -1,5 +1,5 @@
-# 
-describe 'test basic decoding/encoding', ->
+# legacy browser testing
+describe 'test basic decoding/encoding(legacy)', ->
 
 	ProtoBuf = dcodeIO.ProtoBuf
 	Long = dcodeIO.Long
@@ -12,12 +12,9 @@ describe 'test basic decoding/encoding', ->
 	  return (myNav.indexOf('msie') != -1) ? parseInt(myNav.split('msie')[1]) : false;
 	}`
 
-	# If <= ie8 then return
-	if isIE() and isIE() <= 8 then return
-
 	beforeEach -> 
 		
-	it 'should decode simple string correctly', ->
+	it 'should decode simple string correctly(legacy)', ->
 		
 		basicString = """
 						 message Msg01 {
@@ -25,13 +22,7 @@ describe 'test basic decoding/encoding', ->
 			             }
 				      """
 		
-		Msg01 = ProtoBuf.loadProto(basicString).build("Msg01");
-		
-		msg = new Msg01({
-			str: 'test'
-		})
-		
-		hex = msg.toHex()
+		hex = '0a0474657374'
 		
 		protoJson = {
 			'required string str' : 1
@@ -42,21 +33,14 @@ describe 'test basic decoding/encoding', ->
 		expect(conv.fromHex(hex)).toEqual({
 			str: 'test'
 		})
+		
+		base64 = 'CgR0ZXN0'
 		 
-		base64 = msg.toBase64()
-		
-		utf8str = ArrayBufferToUtf8String(msg.toArrayBuffer())
-		
-		expect(conv.frombase64(base64)).toEqual({
-			str: 'test'
-		})
-		
-		expect(conv.toUtf8(conv.fromUtf8(utf8str))).toBe(utf8str)
 		expect(conv.toHex(conv.fromHex(hex))).toBe(hex)
 		expect(conv.tobase64(conv.frombase64(base64))).toBe(base64)
 		
 
-	it 'should decode multiple simple types(string/int32/int64/bool) correctly', ->
+	it 'should decode multiple simple types(string/int32/int64/bool) correctly(legacy)', ->
 				 
 		proto = """
 					 message Message {
@@ -104,17 +88,13 @@ describe 'test basic decoding/encoding', ->
 		
 		conv = jsbuf(protoJson)
 		
-		hex = msg.toHex()
+		hex = '0a0a6d6f726e696e67213f3a1209e697a9e4b88ae5a5bd1a0ce3818ae381afe38288e38186220deca28bec9d8020ec9584ecb9a82801300038d4e6960240b1d1f9d6034a036173644a037364664a037177654a036565654a06e4bda0e5a5bd4a046c6c6c6c50f9fcdb87c3c8e001'
 		
 		expect(conv.fromHex(hex)).toEqual(originMsg)
 
-		base64 = msg.toBase64();
+		base64 = 'Cgptb3JuaW5nIT86Egnml6nkuIrlpb0aDOOBiuOBr+OCiOOBhiIN7KKL7J2AIOyVhOy5qCgBMAA41OaWAkCx0fnWA0oDYXNkSgNzZGZKA3F3ZUoDZWVlSgbkvaDlpb1KBGxsbGxQ+fzbh8PI4AE='
 		
 		expect(conv.frombase64(base64)).toEqual(originMsg)
-		
-		utf8str = ArrayBufferToUtf8String(msg.toArrayBuffer())
-		
-		expect(conv.fromUtf8(utf8str)).toEqual(originMsg)
 		
 		expect(conv.toHex(conv.fromHex(hex))).toBe(hex)
 		expect(conv.tobase64(conv.frombase64(base64))).toBe(base64)
@@ -122,7 +102,7 @@ describe 'test basic decoding/encoding', ->
 		expect(conv.fromUtf8(conv.toUtf8(originMsg))).toEqual(originMsg)
 	
 	
-	it 'should works well with complex decodings', ->
+	it 'should works well with complex decodings(legacy)', ->
 		
 		proto = """
 			 message subMsg {
@@ -221,21 +201,20 @@ describe 'test basic decoding/encoding', ->
 		
 		conv = jsbuf(protoJson)
 		
-		hex = msg.toHex()
+		hex = '0a0a6d6f726e696e67213f3a1211e697a9e4b88ae5a5bd21d4bee280b8d4be1a0ce3818ae381afe38288e38186280030033a100a0ce4b8ade69687e7bc96e7a081107b4203e9a29d4a0a0a0018be94c3a90530014a0a0a0018c894c3a905300150be94c3a9055a06e4bda0e5a5bd5a0575696173645a0ce38184e381a1e381b0e38293609deae4f1e9a2aa01'
+		
 		expect(conv.fromHex(hex)).toEqual(originMsg)
 
-		base64 = msg.toBase64();
+		base64 = 'Cgptb3JuaW5nIT86EhHml6nkuIrlpb0h1L7igLjUvhoM44GK44Gv44KI44GGKAAwAzoQCgzkuK3mlofnvJbnoIEQe0ID6aKdSgoKABi+lMOpBTABSgoKABjIlMOpBTABUL6Uw6kFWgbkvaDlpb1aBXVpYXNkWgzjgYTjgaHjgbDjgpNgnerk8emiqgE='
+
 		expect(conv.frombase64(base64)).toEqual(originMsg)
-		
-		utf8str = ArrayBufferToUtf8String(msg.toArrayBuffer())
-		expect(conv.fromUtf8(utf8str)).toEqual(originMsg)
 		
 		expect(conv.toHex(conv.fromHex(hex))).toBe(hex)
 		expect(conv.tobase64(conv.frombase64(base64))).toBe(base64)
 		
 		expect(conv.fromUtf8(conv.toUtf8(originMsg))).toEqual(originMsg)
 		
-	it 'should works well with Long groups', ->
+	it 'should works well with Long groups(legacy)', ->
 		
 		proto = """
 		message Wrap1 {
@@ -465,15 +444,13 @@ describe 'test basic decoding/encoding', ->
 		msg = new Message(originMsg)
 		conv = jsbuf(protoJson)
 		
-		hex = msg.toHex()
+		hex = '0a0b0800120773756363657373127d0a2508b2e6e20410001a0571756e30302a0070d80b7a008801be94c3a905a00101a80101b001000a2508b2e6e20410001a0571756e30302a0070d80b7a008801be94c3a905a00101a80101b001000a2d08b2e6e20410001a0571756e30302a0070d80b7a008801be94c3a905a00101a80101b00100f001a6c9b9dee515'
+
 		expect(conv.fromHex(hex)).toEqual(originMsg)
 
-		base64 = msg.toBase64()
-
-		expect(conv.frombase64(base64)).toEqual(originMsg)
+		base64 = 'CgsIABIHc3VjY2VzcxJ9CiUIsubiBBAAGgVxdW4wMCoAcNgLegCIAb6Uw6kFoAEBqAEBsAEACiUIsubiBBAAGgVxdW4wMCoAcNgLegCIAb6Uw6kFoAEBqAEBsAEACi0IsubiBBAAGgVxdW4wMCoAcNgLegCIAb6Uw6kFoAEBqAEBsAEA8AGmybne5RU='
 		
-		utf8str = ArrayBufferToUtf8String(msg.toArrayBuffer())
-		expect(conv.fromUtf8(utf8str)).toEqual(originMsg)
+		expect(conv.frombase64(base64)).toEqual(originMsg)
 		
 		expect(conv.toHex(conv.fromHex(hex))).toBe(hex)
 		expect(conv.tobase64(conv.frombase64(base64))).toBe(base64)
