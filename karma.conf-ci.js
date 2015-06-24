@@ -152,7 +152,7 @@ module.exports = function(config) {
     sauceLabs: {
       testName: 'Karma and Sauce Labs demo'
     },
-    captureTimeout: 120000,
+    captureTimeout: 720000,
     customLaunchers: browsers,
 
     // start these browsers
