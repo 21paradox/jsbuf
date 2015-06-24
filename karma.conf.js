@@ -57,16 +57,16 @@ module.exports = function(config) {
     // - PhantomJS
     // - IE (only Windows)
     //browsers: ['Chrome', 'Firefox'],
-    browsers: ['IE8'],
+    browsers: ['IE7'],
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: false,
     
     customLaunchers: {
-            IE8: {
+            IE7: {
                 base: 'IE',
-                'x-ua-compatible': 'IE=EmulateIE8'
+                'x-ua-compatible': 'IE=EmulateIE7'
             } 
         }
     
