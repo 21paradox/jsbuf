@@ -95,7 +95,7 @@ module.exports = function(config) {
       }
   ]);
 
-  ['7', '6'].forEach(function (val) {
+  ['7'].forEach(function (val) {
       browsers.push({
           browserName: 'internet explorer',
           platform: 'XP',
@@ -150,9 +150,9 @@ module.exports = function(config) {
     logLevel: config.LOG_INFO,
 
     sauceLabs: {
-      testName: 'Karma and Sauce Labs demo'
+      testName: 'jsbuf test case'
     },
-    captureTimeout: 720000,
+    captureTimeout: 120000,
     customLaunchers: browsers,
 
     // start these browsers

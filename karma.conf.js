@@ -17,7 +17,6 @@ module.exports = function(config) {
     files: [
       'test/json2.js',
       'test/console.js',
-      //'test/polyfill.js',
       'test/es5shim.js',
       'test/es5sham.js',
       'test/typedarray.js',
@@ -60,7 +59,7 @@ module.exports = function(config) {
     // - PhantomJS
     // - IE (only Windows)
     //browsers: ['Chrome', 'Firefox'],
-    browsers: ['IE7'],
+    browsers: ['Chrome'],
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
